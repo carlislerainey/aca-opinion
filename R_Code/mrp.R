@@ -58,7 +58,7 @@ ps <- 100*poststratify(mrp.est, ~ state)
 sort(round(ps, 0))
 
 
-eplot(xlim = c(0, 1), ylim = c(0, 52), anny = FALSE)
+eplot(xlim = mm(ps), ylim = c(0, 52), anny = FALSE)
 abline(v = .5)
 abline(h = 1:51, lty = 3, col = "grey70")
 points(ps[order(ps)], 1:51, pch = 19)
