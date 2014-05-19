@@ -61,7 +61,7 @@ age[age.years >= 45 & age.years <= 64] <- 3
 age[age.years >= 65 & age.years < 99] <- 4
 age[age.cat == "18-29"] <- 1
 age[age.cat == "30-49"] <- 2
-age[age.cat == "50-65"] <- 3
+age[age.cat == "50-64"] <- 3
 age[age.cat == "65+"] <- 4
 age <- factor(age, levels = 1:4, labels = c("18-29", "30-44", "45-64", "65+"))
 table(age)
