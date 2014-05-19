@@ -10,4 +10,6 @@ source("R_Code/Clean_Polls/kaiser_2013_06.R")
 source("R_Code/Clean_Polls/kaiser_2013_07.R")
 source("R_Code/Clean_Polls/kaiser_2013_08.R")
 source("R_Code/Clean_Polls/kaiser_2013_09.R")
+source("R_Code/Clean_Polls/kaiser_2013_10.R")
+
 
