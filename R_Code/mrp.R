@@ -21,7 +21,6 @@ source("R_Code/clean_poll_data.R")
 source("R_Code/merge_poll_data.R")
 poll.data <- read.csv("Data/poll_data.csv")
 state.names <- read.csv("Data/Aggregate_Data/state_names.csv", stringsAsFactors = FALSE)
-obama2008 <- read.csv("Data/Aggregate_Data/obama2008.csv", stringsAsFactors = FALSE)
 obama2012 <- read.csv("Data/Aggregate_Data/obama2012.csv", stringsAsFactors = FALSE)
 region <- read.csv("Data/Aggregate_Data/region.csv", stringsAsFactors = FALSE)
 
