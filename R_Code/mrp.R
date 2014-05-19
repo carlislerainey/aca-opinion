@@ -55,8 +55,8 @@ mrp.est <- mrp(aca.fav ~ state,
                formula.pop.update = .~. -month,
                formula.model.update = .~. + obama_share_12,
 )
-ps <- poststratify(mrp.est, ~ state)
-sort(round(100*ps, 0))
+ps <- 100*poststratify(mrp.est, ~ state)
+sort(round(ps, 0))
 
 
 eplot(xlim = c(0, 1), ylim = c(0, 52), anny = FALSE)
