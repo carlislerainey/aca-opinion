@@ -1,10 +1,16 @@
 # Overview
 
+
 This repository contains state-level estimates of favorability toward the Affordable Care Act for 2013. I combine data from the Kaiser Tracking Poll from February 2013 to November 2013 (excluding May and July) using multilevel regression with post-stratification.
 
 The procedure estimates the percentage of citizens in each state that answered either Very Favorable or Somewhat Favorable to the following question: 
 
 > As you may know, a health reform bill was signed into law in 2010. Given what you know about the health reform law, do you have a generally favorable or generally unfavorable opinion of it? Is that a very favorable/unfavorable or somewhat favorable/unfavorable opinion?
+
+The estimates are presented in the plot below.
+
+![Estimates](Figures/mrp_est.png)
+
 
 If you are interested in just the state-level estimates, you can download the latest version by right-clicking [here](https://raw.githubusercontent.com/carlislerainey/ACA_Opinion/master/Data/mrp_est.csv) and "Save As." If you want to load the data directly into R, then you can simply run the following lines in R.
 
