@@ -46,12 +46,11 @@ mrp.census <- na.omit(mrp.census)
 ## Mister P.
 ################################################################################
 
-mrp.est <- mrp(aca.fav ~ state,
+mrp.est <- mrp(aca.fav ~ state + sex + race + sex.race + age + education + income,
                data=poll.data,
                population=mrp.census,
                pop.weights="weighted2008",
                grouplevel.data.frames = list(obama2012),
-               formula.pop.update = .~. -month,
                formula.model.update = .~. + obama_share_12,
 )
 ps <- 100*poststratify(mrp.est, ~ state)

@@ -1,7 +1,7 @@
 # Overview
 
 
-This repository contains state-level estimates of favorability toward the Affordable Care Act for 2013. I combine data from the Kaiser Tracking Poll from February 2013 to November 2013 (excluding May and July) using multilevel regression with post-stratification.
+This repository contains state-level estimates of favorability toward the Affordable Care Act for 2013. To produce the estimates, I combine data from the Kaiser Tracking Poll from February 2013 to November 2013 (excluding May and July) with Census data and Obama's 2012 vote share using multilevel regression with post-stratification.
 
 The procedure estimates the percentage of citizens in each state that answered either Very Favorable or Somewhat Favorable to the following question: 
 
