@@ -94,6 +94,7 @@ new.data <- na.omit(new.data)
 
 # survey-level variables
 new.data$month <- factor("September")
+new.data$year <- factor("2013")
 new.data$polling.org <- factor("Kaiser")
 
 # write csv file
