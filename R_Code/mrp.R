@@ -56,18 +56,11 @@ mrp.est <- mrp(aca.fav ~ state + sex + race + sex.race + age + education + incom
 ps <- 100*poststratify(mrp.est, ~ state)
 sort(round(ps, 0))
 
-png("Figures/mrp_est.png", height = 7, width = 6, units = "in", res = 72)
-par(mfrow = c(1,1), oma = c(0,0,0,0), mar = c(3,1,1,1))
-eplot(xlim = mm(ps), ylim = c(0, 52), anny = FALSE,
-      xlab = "Percent Who View ACA Favorably")
-abline(v = .5)
-abline(h = 1:51, lty = 3, col = "grey70")
-points(ps[order(ps)], 1:51, pch = 19)
-pos <- rep(4, length(ps))
-pos[length(pos)] <- 2
-text(ps[order(ps)], 1:51, names(ps[order(ps)]), pos = pos, cex = .70)
-dev.off()
-
+# write data
 mrp.data <- data.frame(ps, names(ps), row.names = 1:length(ps))
 colnames(mrp.data) <- c("percent_favorable_aca", "state_abbr")
 write.csv(mrp.data, "Data/mrp_est.csv", row.names = FALSE)
+
+# create figures
+source("R_Code/create_figures.R")
+
