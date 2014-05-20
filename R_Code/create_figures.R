@@ -1,5 +1,5 @@
 # clear workspace
-rm(list = ls())
+# rm(list = ls())
 
 # set working directory
 setwd("~/Dropbox/Projects/ACA_Opinion")
@@ -14,7 +14,7 @@ d <- read.csv("Data/mrp_est.csv")
 fav <- d$percent_favorable_aca
 ord <- order(fav)
 fav <- fav[ord]
-st <- d$state[ord]
+st <- d$state_abbr[ord]
 
 png("Figures/mrp_est.png", height = 7, width = 6, units = "in", res = 72)
 par(mfrow = c(1,1), oma = c(0,0,0,0), mar = c(3,1,1,1))

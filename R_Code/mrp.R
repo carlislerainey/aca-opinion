@@ -55,6 +55,13 @@ mrp.est <- mrp(aca.fav ~ state + sex + race + sex.race + age + education + incom
 )
 ps <- 100*poststratify(mrp.est, ~ state)
 sort(round(ps, 0))
+#AIC(slot(mrp.est, "multilevelModel"))
+
+eplot(xlim = c(0, 100), ylim = c(0, 52), anny = FALSE)
+abline(v = 50)
+abline(h = 1:51, lty = 3, col = "grey70")
+points(ps[order(ps)], 1:51, pch = 19)
+text(ps[order(ps)], 1:51, names(ps[order(ps)]), pos = 4, cex = .5)
 
 # write data
 mrp.data <- data.frame(ps, names(ps), row.names = 1:length(ps))

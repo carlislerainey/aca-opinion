@@ -31,11 +31,13 @@ table(aca.fav)
 
 # race
 race <- d$RACETHN
+table(race)
 levels(race)[levels(race)=="White~Hisp"] <- "White"
-levels(race)[levels(race)=="AA~Hisp"] <- "Black"
-levels(race)[levels(race)=="Hispanic"] <- "Hispanic"
-levels(race)[levels(race)=="Other~Hisp"] <- "Other"
-race[race=="DK/Ref"] <- NA
+levels(race)[levels(race)=="Black~Hisp"] <- "Black"
+levels(race)[levels(race)=="Hisp, born in US"] <- "Hispanic"
+levels(race)[levels(race)=="Hisp, born outside US"] <- "Hispanic"
+levels(race)[levels(race)=="Other"] <- "Other"
+race[race=="Ref"] <- NA
 race <- factor(race)
 table(race)
 
