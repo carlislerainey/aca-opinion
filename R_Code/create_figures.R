@@ -8,6 +8,7 @@ setwd("~/Dropbox/Projects/ACA_Opinion")
 library(compactr)
 library(maps)
 library(maps)
+library(ggplot2)
 
 # draw line plot
 d <- read.csv("Data/mrp_est.csv")
