@@ -22,7 +22,7 @@ rm(temp)
 table(state)
 
 # aca favorability
-aca.fav <- d$Q1
+aca.fav <- d$Q3
 table(aca.fav)
 aca.fav <- as.numeric(aca.fav)
 aca.fav[aca.fav == 5] <- NA
