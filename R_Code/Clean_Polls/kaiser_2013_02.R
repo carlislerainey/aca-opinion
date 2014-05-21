@@ -29,6 +29,14 @@ aca.fav[aca.fav == 5] <- NA
 aca.fav <- 1*(aca.fav <= 2)
 table(aca.fav)
 
+# tea party
+tea.party <- rep(-99, length(d$QD8C))
+table(d$QD8C)
+tea.party[d$QD8C=="Yes, supporter of the Tea Party movement"] <- 1
+tea.party[d$QD8C=="No, not a supporter of the Tea Party movement"] <- 0
+tea.party[d$QD8C=="(DO NOT READ)  Don't know/Refused"] <- NA
+table(tea.party)
+
 # race
 race <- d$RACETHN
 levels(race)[levels(race)=="White~Hisp"] <- "White"
@@ -88,12 +96,9 @@ education[education == "Don't know/Refused (VOL.)"] <- NA
 education <- factor(education)
 table(education)
 
-# interactions
-sex.race <- interaction(sex, race)
-
 # combine variables
-new.data <- data.frame(aca.fav, state, race, income, sex, sex.race, age, education)
-new.data <- na.omit(new.data)
+new.data <- data.frame(aca.fav, tea.party, state, race, income, sex, age, education)
+# new.data <- na.omit(new.data)
 
 # survey-level variables
 new.data$month <- factor("February")

@@ -29,6 +29,23 @@ aca.fav[aca.fav == 5] <- NA
 aca.fav <- 1*(aca.fav <= 2)
 table(aca.fav)
 
+# tea party
+tea.party <- rep(-99, length(d$QD8C))
+table(d$QD8C)
+tea.party[d$QD8C=="Yes, supporter of the Tea Party movement"] <- 1
+tea.party[d$QD8C=="No, not a supporter of the Tea Party movement"] <- 0
+tea.party[d$QD8C=="(DO NOT READ)  Don't know/Refused"] <- NA
+table(tea.party)
+
+# favor expanding medicaid
+exp.medicaid <- rep(-99, length(d$Q22))
+table(d$Q22)
+exp.medicaid[d$Q22 == "Expand Medicaid w/ feds initially paying 100% cost and your state eventually paying 10%"] <- 1
+exp.medicaid[d$Q22 == "Keep Medicaid as it is today, with no new funding from the federal government and no change in who will be covered"] <- 0
+exp.medicaid[d$Q22 == "Other/Neither (VOL.)"] <- NA
+exp.medicaid[d$Q22 == "(DO NOT READ) Don't know/Refused"] <- NA
+table(exp.medicaid)
+
 # race
 race <- d$RACETHN
 table(race)
@@ -93,12 +110,9 @@ table(education)
 # Note: there is no indication in this survey of whether the respondent earned a postgraduate degree
 # In this case, I've coded the respondents who reported some postgraduate education as having a postgraduate degree.
 
-# interactions
-sex.race <- interaction(sex, race)
-
 # combine variables
-new.data <- data.frame(aca.fav, state, race, income, sex, sex.race, age, education)
-new.data <- na.omit(new.data)
+new.data <- data.frame(aca.fav, tea.party, exp.medicaid, state, race, income, sex, age, education)
+# new.data <- na.omit(new.data)
 
 # survey-level variables
 new.data$month <- factor("July")

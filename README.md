@@ -1,8 +1,13 @@
+This project produces 2012 state-level estimates of...
+
+* the percent who view the 2010 ACA favorably.
+* the percent who support expanding Medicaid.
+* the percent who support the Tea Party.
 ![Estimates](Figures/mrp_est_map.png)
 
 # Get the Data
 
-If you are interested in just the state-level estimates, you can download the latest version by right-clicking [here](https://raw.githubusercontent.com/carlislerainey/ACA_Opinion/master/Data/mrp_est.csv) and then clicking "Save As." If you want to load the data directly into R, then simply run the following lines.
+If you are interested in using the data, you can download the latest version by right-clicking [here](https://raw.githubusercontent.com/carlislerainey/ACA_Opinion/master/Data/mrp_est.csv) and then clicking "Save As." If you want to load the data directly into R, then simply run the following lines.
 
     library(RCurl)
     url <- "https://raw.githubusercontent.com/carlislerainey/ACA_Opinion/master/Data/mrp_est.csv"
@@ -11,13 +16,39 @@ If you are interested in just the state-level estimates, you can download the la
 
 # Overview
 
-This repository contains state-level estimates of favorability toward the Affordable Care Act for 2012/2013 and all of the code and data (except for the original surveys from Roper) necessary to re-created them. To produce the estimates, I combine data from the Kaiser Tracking Poll from January 2012 to November 2013 (excluding December of 2012 and January, May, and July or 2013) with Census data and Obama's 2012 vote share using multilevel regression with post-stratification. I use individuals' states, sex, race (and the interaction of race and sex), age, education, and income in the poststratification ([Lax and Phillips 2009a](http://www.columbia.edu/~jhp2121/publications/HowShouldWeEstimateOpinion.pdf), [2009b](http://www.columbia.edu/~jrl2124/Lax_Phillips_Gay_Policy_Responsiveness_2009.pdf)). I rely on the [MRP package](https://github.com/malecki/mrp) to do the computation. 
+This repository contains state-level estimates of favorability toward the Affordable Care Act for 2012 and all of the code and data (except for the original surveys from Roper) necessary to re-created them. To produce the estimates, I combine data from the Kaiser Tracking Poll from January 2012 to November 2012 with Census data and Obama's 2012 vote share using multilevel regression with post-stratification. I use individuals' states, sex, race (and the interaction of race and sex), age, education, and income in the poststratification ([Lax and Phillips 2009a](http://www.columbia.edu/~jhp2121/publications/HowShouldWeEstimateOpinion.pdf), [2009b](http://www.columbia.edu/~jrl2124/Lax_Phillips_Gay_Policy_Responsiveness_2009.pdf)). I rely on the [MRP package](https://github.com/malecki/mrp) to do the computation. 
 
-The procedure estimates the percentage of citizens in each state that answered either Very Favorable or Somewhat Favorable to the [following question](http://www.ropercenter.uconn.edu/CFIDE/cf/action/ipoll/questionDetail.cfm?keyword=health%20AND%20%20reform&keywordoptions=1&exclude=&excludeOptions=1&topic=Any&organization=Kaiser&label=&fromdate=1/1/1935&toDate=12/31/2014&stitle=&sponsor=Henry%20J.%20Kaiser%20Family%20Foundation&studydate=01-JAN-34&sample=1504&qstn_list=&qstnid=1849005&qa_list=&qstn_id4=1849005&study_list=&lastSearchId=7556665&archno=&keywordDisplay=): 
+Note the the repository also include cleaned and recoded Kaiser Tracking polls (and the code to do the cleaning) up to November 2013 (there were no polls in January, May, or July). However, these data are not included in the current estimates, because I need them for 2012 for [this project](http://www.carlislerainey.com/files/need.pdf). However, these data can easily be included in the estimates with small changes to `mrp.R`.
 
-> As you may know, a health reform bill was signed into law in 2010. Given what you know about the health reform law, do you have a generally favorable or generally unfavorable opinion of it? Is that a very favorable/unfavorable or somewhat favorable/unfavorable opinion?
+## ACA Favorability
+
+To estimate the percent of a state's citizens that support expanding Medicaid under the ACA, I use the [following question](http://www.ropercenter.uconn.edu/CFIDE/cf/action/ipoll/questionDetail.cfm?keyword=health%20AND%20%20reform&keywordoptions=1&exclude=&excludeOptions=1&topic=Any&organization=Kaiser&label=&fromdate=1/1/1935&toDate=12/31/2014&stitle=&sponsor=Henry%20J.%20Kaiser%20Family%20Foundation&studydate=01-JAN-34&sample=1504&qstn_list=&qstnid=1849005&qa_list=&qstn_id4=1849005&study_list=&lastSearchId=7556665&archno=&keywordDisplay=), which appears in each Kaiser Tracking Poll from January 2012 to November 2012:
+
+> As you may know, a health reform bill was signed into law in 2010. Given what you know about the health reform law, do you have a generally favorable or generally unfavorable opinion of it? 
+
+## Support for Medicaid Expansion
+
+To estimate the percent of a state's citizens that support expanding Medicaid under the ACA, I use the [following question](http://www.ropercenter.uconn.edu/CFIDE/cf/action/ipoll/questionDetail.cfm?keyword=medicaid%20AND%20%20expansion&keywordoptions=1&exclude=&excludeOptions=1&topic=Any&organization=Kaiser&label=&fromdate=1/1/1935&toDate=12/31/2014&stitle=&sponsor=Henry%20J.%20Kaiser%20Family%20Foundation&studydate=July%2017-23,%202012&sample=1227&qstn_list=&qstnid=1814816&qa_list=&qstn_id4=1814816&study_list=&lastSearchId=7559814&archno=USPSRA2012-HNI112&keywordDisplay=), which appears only in the July 2012 Kaiser Tracking Poll:
+
+> As you may know, the (2010) health care law expands Medicaid to provide health insurance to more low-income uninsured adults, including adults with no children whose incomes are below about $16,000 a year. The federal government will initially pay the entire cost of this expansion, and after several years, states will pay 10 percent and the federal government will pay 90 percent. The Supreme Court ruled that states may choose whether or not to participate in this expansion. What do you think your state should do? Keep Medicaid as it is today, with no new funding from the federal government and no change in who will be covered by the program or expand Medicaid to cover more low-income uninsured people, with the federal government initially paying the entire cost of the expansion and your state eventually paying 10 percent.
+
+Although the number of respondents is below the minimum number of 1,400 recommended by [Lax and Phillips (2009a)](http://www.columbia.edu/~jhp2121/publications/HowShouldWeEstimateOpinion.pdf), I believe I have a *very* good state-level predictor in Obama's 2012 vote share. 
+
+
+A [very similar question](http://www.ropercenter.uconn.edu/CFIDE/cf/action/ipoll/questionDetail.cfm?keyword=medicaid%20AND%20%20expansion&keywordoptions=1&exclude=&excludeOptions=1&topic=Any&organization=Kaiser&label=&fromdate=1/1/1935&toDate=12/31/2014&stitle=&sponsor=Henry%20J.%20Kaiser%20Family%20Foundation&studydate=April%2015-20,%202013&sample=1203&qstn_list=&qstnid=1832282&qa_list=&qstn_id4=1832282&study_list=&lastSearchId=7559814&archno=USPSRA2013-HNI119&keywordDisplay=) was asked in the April and March 2013 Kaiser Tracking polls, but these data are not included in the current estimates.
+
+
+## Support for the Tea Party
+
+To estimate the percent of a state's citizens that support the Tea Party, I use the [following question](http://www.ropercenter.uconn.edu/CFIDE/cf/action/ipoll/questionDetail.cfm?keyword=tea%20AND%20%20party&keywordoptions=1&exclude=&excludeOptions=1&topic=Any&organization=Kaiser&label=&fromdate=1/1/1935&toDate=12/31/2014&stitle=&sponsor=Henry%20J.%20Kaiser%20Family%20Foundation&studydate=01-JAN-34&sample=1504&qstn_list=&qstnid=1849048&qa_list=&qstn_id4=1849048&study_list=&lastSearchId=7559807&archno=&keywordDisplay=), which appears in each Kaiser Tracking Poll from January 2012 to November 2012:
+
+> Do you consider yourself to be a supporter of the Tea Party movement, or not?
+
+Note the the Tea Party question was also asked in the February, September, October, and November tracking polls in 2013, though these are not included in the current estimates.
 
 The estimates are presented in the plots below and available for download [here](https://raw.githubusercontent.com/carlislerainey/ACA_Opinion/master/Data/mrp_est.csv). 
+
+## The Estimates
 
 ![Estimates](Figures/mrp_est.png)
     

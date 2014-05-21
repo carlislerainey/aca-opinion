@@ -4,6 +4,9 @@ rm(list = ls())
 # set working directory
 setwd("~/Dropbox/Projects/ACA_Opinion")
 
+# load packages
+library(gtools)
+
 # load polls
 kaiser.2012.01 <- read.csv("Data/Cleaned_Poll_Data/kaiser_2012_01.csv")
 kaiser.2012.02 <- read.csv("Data/Cleaned_Poll_Data/kaiser_2012_02.csv")
@@ -25,7 +28,7 @@ kaiser.2013.09 <- read.csv("Data/Cleaned_Poll_Data/kaiser_2013_09.csv")
 kaiser.2013.10 <- read.csv("Data/Cleaned_Poll_Data/kaiser_2013_10.csv")
 kaiser.2013.11 <- read.csv("Data/Cleaned_Poll_Data/kaiser_2013_11.csv")
 
-d <- rbind(kaiser.2012.01,
+d <- smartbind(kaiser.2012.01,
            kaiser.2012.02,
            kaiser.2012.03,
            kaiser.2012.04,
@@ -45,5 +48,7 @@ d <- rbind(kaiser.2012.01,
            kaiser.2013.10,
            kaiser.2013.11)
 summary(d)
+table(paste(d$month, d$year), d$tea.party)
+table(paste(d$month, d$year), d$exp.medicaid)
 
 write.csv(d, "Data/poll_data.csv", row.names = FALSE)

@@ -19,11 +19,12 @@ library(compactr)
 
 source("R_Code/clean_poll_data.R")
 source("R_Code/merge_poll_data.R")
-poll.data <- read.csv("Data/poll_data.csv")
 state.names <- read.csv("Data/Aggregate_Data/state_names.csv", stringsAsFactors = FALSE)
 obama2012 <- read.csv("Data/Aggregate_Data/obama2012.csv", stringsAsFactors = FALSE)
 region <- read.csv("Data/Aggregate_Data/region.csv", stringsAsFactors = FALSE)
-
+poll.data <- read.csv("Data/poll_data.csv")
+poll.data <- poll.data[poll.data$year == 2012, ]
+poll.data$sex.race <- interaction(poll.data$sex, poll.data$race)
 
 ################################################################################
 ## Prepare Census Data
@@ -46,26 +47,60 @@ mrp.census <- na.omit(mrp.census)
 ## Mister P.
 ################################################################################
 
-mrp.est <- mrp(aca.fav ~ state + sex + race + sex.race + age + education + income,
+# aca favorability
+mrp.aca.fav <- mrp(aca.fav ~ state + sex + race + sex.race + age + education + income,
                data=poll.data,
                population=mrp.census,
                pop.weights="weighted2008",
                grouplevel.data.frames = list(obama2012),
                formula.model.update = .~. + obama_share_12,
 )
-ps <- 100*poststratify(mrp.est, ~ state)
-sort(round(ps, 0))
+ps.aca.fav <- 100*poststratify(mrp.aca.fav, ~ state)
+sort(round(ps.aca.fav, 0))
 #AIC(slot(mrp.est, "multilevelModel"))
-
-eplot(xlim = c(0, 100), ylim = c(0, 52), anny = FALSE)
+eplot(xlim = c(0, 100), ylim = c(0, 52), anny = FALSE, main = "ACA Favorability")
 abline(v = 50)
 abline(h = 1:51, lty = 3, col = "grey70")
-points(ps[order(ps)], 1:51, pch = 19)
-text(ps[order(ps)], 1:51, names(ps[order(ps)]), pos = 4, cex = .5)
+points(ps.aca.fav[order(ps.aca.fav)], 1:51, pch = 19)
+text(ps.aca.fav[order(ps.aca.fav)], 1:51, names(ps.aca.fav[order(ps.aca.fav)]), pos = 4, cex = .5)
+
+# tea party
+mrp.tea.party <- mrp(tea.party ~ state + sex + race + sex.race + age + education + income,
+                   data=poll.data,
+                   population=mrp.census,
+                   pop.weights="weighted2008",
+                   grouplevel.data.frames = list(obama2012),
+                   formula.model.update = .~. + obama_share_12,
+)
+ps.tea.party <- 100*poststratify(mrp.tea.party, ~ state)
+sort(round(ps.tea.party, 0))
+#AIC(slot(mrp.est, "multilevelModel"))
+eplot(xlim = c(0, 100), ylim = c(0, 52), anny = FALSE, main = "Tea Party")
+abline(v = 50)
+abline(h = 1:51, lty = 3, col = "grey70")
+points(ps.tea.party[order(ps.tea.party)], 1:51, pch = 19)
+text(ps.tea.party[order(ps.tea.party)], 1:51, names(ps.tea.party[order(ps.tea.party)]), pos = 4, cex = .5)
+
+# expand medicaid
+mrp.exp.medicaid <- mrp(exp.medicaid ~ state + sex + race + sex.race + age + education + income,
+                   data=poll.data,
+                   population=mrp.census,
+                   pop.weights="weighted2008",
+                   grouplevel.data.frames = list(obama2012),
+                   formula.model.update = .~. + obama_share_12,
+)
+ps.exp.medicaid <- 100*poststratify(mrp.exp.medicaid, ~ state)
+sort(round(ps.exp.medicaid, 0))
+#AIC(slot(mrp.est, "multilevelModel"))
+eplot(xlim = c(0, 100), ylim = c(0, 52), anny = FALSE, main = "Support Expanding Medicaid")
+abline(v = 50)
+abline(h = 1:51, lty = 3, col = "grey70")
+points(ps.exp.medicaid[order(ps.exp.medicaid)], 1:51, pch = 19)
+text(ps.exp.medicaid[order(ps.exp.medicaid)], 1:51, names(ps.exp.medicaid[order(ps.exp.medicaid)]), pos = 4, cex = .5)
 
 # write data
-mrp.data <- data.frame(ps, names(ps), row.names = 1:length(ps))
-colnames(mrp.data) <- c("percent_favorable_aca", "state_abbr")
+mrp.data <- data.frame(names(ps.aca.fav), ps.aca.fav, ps.exp.medicaid, ps.tea.party, row.names = 1:length(ps.aca.fav))
+colnames(mrp.data) <- c("state_abbr", "percent_favorable_aca", "percent_supporting_expansion", "percent_supporting_tea_party")
 write.csv(mrp.data, "Data/mrp_est.csv", row.names = FALSE)
 
 # create figures

@@ -29,6 +29,15 @@ aca.fav[aca.fav == 5] <- NA
 aca.fav <- 1*(aca.fav <= 2)
 table(aca.fav)
 
+# favor expanding medicaid
+exp.medicaid <- rep(-99, length(d$Q15))
+table(d$Q15)
+exp.medicaid[d$Q15 == "Expand Medicaid"] <- 1
+exp.medicaid[d$Q15 == "Keep Medicaid as it is today"] <- 0
+exp.medicaid[d$Q15 == "(VOL.) Other/Neither"] <- NA
+exp.medicaid[d$Q15 == "(DO NOT READ) Don't know/Refused"] <- NA
+table(exp.medicaid)
+
 # race
 race <- d$RACETHN
 levels(race)[levels(race)=="White~Hisp"] <- "White"
@@ -87,12 +96,9 @@ education[education == "Don't know/Refused (VOL.)"] <- NA
 education <- factor(education)
 table(education)
 
-# interactions
-sex.race <- interaction(sex, race)
-
 # combine variables
-new.data <- data.frame(aca.fav, state, race, income, sex, sex.race, age, education)
-new.data <- na.omit(new.data)
+new.data <- data.frame(aca.fav, exp.medicaid, state, race, income, sex, age, education)
+# new.data <- na.omit(new.data)
 
 # survey-level variables
 new.data$month <- factor("March")

@@ -86,12 +86,10 @@ levels(education)[levels(education)=="Postgraduate or professional degree, inclu
 education[education == "Don't know/Refused (VOL.)"] <- NA
 education <- factor(education)
 table(education)
-# interactions
-sex.race <- interaction(sex, race)
 
 # combine variables
-new.data <- data.frame(aca.fav, state, race, income, sex, sex.race, age, education)
-new.data <- na.omit(new.data)
+new.data <- data.frame(aca.fav, state, race, income, sex, age, education)
+# new.data <- na.omit(new.data)
 
 # survey-level variables
 new.data$month <- factor("August")
