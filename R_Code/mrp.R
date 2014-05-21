@@ -52,8 +52,8 @@ mrp.aca.fav <- mrp(aca.fav ~ state, # + sex + race + sex.race + age + education 
                data=poll.data,
                population=mrp.census,
                pop.weights="weighted2008",
-               grouplevel.data.frames = list(obama2012),
-               formula.model.update = .~. + obama_share_12,
+               grouplevel.data.frames = list(obama2012, region),
+               formula.model.update = .~. + obama_share_12 + (1 | region),
 )
 ps.aca.fav <- 100*poststratify(mrp.aca.fav, ~ state)
 sort(round(ps.aca.fav, 0))
@@ -69,8 +69,8 @@ mrp.tea.party <- mrp(tea.party ~ state + sex, # + race + sex.race + age + educat
                    data=poll.data,
                    population=mrp.census,
                    pop.weights="weighted2008",
-                   grouplevel.data.frames = list(obama2012),
-                   formula.model.update = .~. + obama_share_12,
+                   grouplevel.data.frames = list(obama2012, region),
+                   formula.model.update = .~. + obama_share_12 + (1 | region),
 )
 ps.tea.party <- 100*poststratify(mrp.tea.party, ~ state)
 sort(round(ps.tea.party, 0))
@@ -86,8 +86,8 @@ mrp.exp.medicaid <- mrp(exp.medicaid ~ state, # + sex + race + sex.race + age + 
                    data=poll.data,
                    population=mrp.census,
                    pop.weights="weighted2008",
-                   grouplevel.data.frames = list(obama2012),
-                   formula.model.update = .~. + obama_share_12,
+                   grouplevel.data.frames = list(obama2012, region),
+                   formula.model.update = .~. + obama_share_12 + (1 | region),
 )
 ps.exp.medicaid <- 100*poststratify(mrp.exp.medicaid, ~ state)
 sort(round(ps.exp.medicaid, 0))
