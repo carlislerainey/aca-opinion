@@ -99,9 +99,9 @@ points(ps.exp.medicaid[order(ps.exp.medicaid)], 1:51, pch = 19)
 text(ps.exp.medicaid[order(ps.exp.medicaid)], 1:51, names(ps.exp.medicaid[order(ps.exp.medicaid)]), pos = 4, cex = .5)
 
 # write data
-mrp.data.aca.fav <- data.frame(state = names(ps.aca.fav), percent_favorable_aca = ps.aca.fav, row.names = 1:length(ps.aca.fav))
-mrp.data.exp.medicaid <- data.frame(state = names(ps.exp.medicaid), percent_supporting_expansion = ps.exp.medicaid, row.names = 1:length(ps.exp.medicaid))
-mrp.data.tea.party <- data.frame(state = names(ps.tea.party), percent_supporting_tea_party = ps.tea.party, row.names = 1:length(ps.tea.party))
+mrp.data.aca.fav <- data.frame(state_abbr = names(ps.aca.fav), percent_favorable_aca = ps.aca.fav, row.names = 1:length(ps.aca.fav))
+mrp.data.exp.medicaid <- data.frame(state_abbr = names(ps.exp.medicaid), percent_supporting_expansion = ps.exp.medicaid, row.names = 1:length(ps.exp.medicaid))
+mrp.data.tea.party <- data.frame(state_abbr = names(ps.tea.party), percent_supporting_tea_party = ps.tea.party, row.names = 1:length(ps.tea.party))
 
 mrp.data <- join(mrp.data.aca.fav, mrp.data.exp.medicaid)
 mrp.data <- join(mrp.data, mrp.data.tea.party)
