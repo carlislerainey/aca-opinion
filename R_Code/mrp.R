@@ -48,7 +48,7 @@ mrp.census <- na.omit(mrp.census)
 ################################################################################
 
 # aca favorability
-mrp.aca.fav <- mrp(aca.fav ~ state + sex + race + sex.race + age + education + income,
+mrp.aca.fav <- mrp(aca.fav ~ state, # + sex + race + sex.race + age + education + income,
                data=poll.data,
                population=mrp.census,
                pop.weights="weighted2008",
@@ -65,7 +65,7 @@ points(ps.aca.fav[order(ps.aca.fav)], 1:51, pch = 19)
 text(ps.aca.fav[order(ps.aca.fav)], 1:51, names(ps.aca.fav[order(ps.aca.fav)]), pos = 4, cex = .5)
 
 # tea party
-mrp.tea.party <- mrp(tea.party ~ state + sex + race + sex.race + age + education + income,
+mrp.tea.party <- mrp(tea.party ~ state + sex, # + race + sex.race + age + education + income,
                    data=poll.data,
                    population=mrp.census,
                    pop.weights="weighted2008",
@@ -82,7 +82,7 @@ points(ps.tea.party[order(ps.tea.party)], 1:51, pch = 19)
 text(ps.tea.party[order(ps.tea.party)], 1:51, names(ps.tea.party[order(ps.tea.party)]), pos = 4, cex = .5)
 
 # expand medicaid
-mrp.exp.medicaid <- mrp(exp.medicaid ~ state + sex + race + sex.race + age + education + income,
+mrp.exp.medicaid <- mrp(exp.medicaid ~ state, # + sex + race + sex.race + age + education + income,
                    data=poll.data,
                    population=mrp.census,
                    pop.weights="weighted2008",
@@ -99,8 +99,13 @@ points(ps.exp.medicaid[order(ps.exp.medicaid)], 1:51, pch = 19)
 text(ps.exp.medicaid[order(ps.exp.medicaid)], 1:51, names(ps.exp.medicaid[order(ps.exp.medicaid)]), pos = 4, cex = .5)
 
 # write data
-mrp.data <- data.frame(names(ps.aca.fav), ps.aca.fav, ps.exp.medicaid, ps.tea.party, row.names = 1:length(ps.aca.fav))
-colnames(mrp.data) <- c("state_abbr", "percent_favorable_aca", "percent_supporting_expansion", "percent_supporting_tea_party")
+mrp.data.aca.fav <- data.frame(state = names(ps.aca.fav), percent_favorable_aca = ps.aca.fav, row.names = 1:length(ps.aca.fav))
+mrp.data.exp.medicaid <- data.frame(state = names(ps.exp.medicaid), percent_supporting_expansion = ps.exp.medicaid, row.names = 1:length(ps.exp.medicaid))
+mrp.data.tea.party <- data.frame(state = names(ps.tea.party), percent_supporting_tea_party = ps.tea.party, row.names = 1:length(ps.tea.party))
+
+mrp.data <- join(mrp.data.aca.fav, mrp.data.exp.medicaid)
+mrp.data <- join(mrp.data, mrp.data.tea.party)
+
 write.csv(mrp.data, "Data/mrp_est.csv", row.names = FALSE)
 
 # create figures
