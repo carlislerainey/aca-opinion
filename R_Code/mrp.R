@@ -48,7 +48,7 @@ mrp.census <- na.omit(mrp.census)
 ################################################################################
 
 # aca favorability
-mrp.aca.fav <- mrp(aca.fav ~ state, # + sex + race + sex.race + age + education + income,
+mrp.aca.fav <- mrp(aca.fav ~ state + sex + race + sex.race + age + education + income,
                data=poll.data,
                population=mrp.census,
                pop.weights="weighted2008",
@@ -65,7 +65,7 @@ points(ps.aca.fav[order(ps.aca.fav)], 1:51, pch = 19)
 text(ps.aca.fav[order(ps.aca.fav)], 1:51, names(ps.aca.fav[order(ps.aca.fav)]), pos = 4, cex = .5)
 
 # tea party
-mrp.tea.party <- mrp(tea.party ~ state + sex, # + race + sex.race + age + education + income,
+mrp.tea.party <- mrp(tea.party ~ state + sex + race + sex.race + age + education + income,
                    data=poll.data,
                    population=mrp.census,
                    pop.weights="weighted2008",
@@ -82,7 +82,7 @@ points(ps.tea.party[order(ps.tea.party)], 1:51, pch = 19)
 text(ps.tea.party[order(ps.tea.party)], 1:51, names(ps.tea.party[order(ps.tea.party)]), pos = 4, cex = .5)
 
 # expand medicaid
-mrp.exp.medicaid <- mrp(exp.medicaid ~ state, # + sex + race + sex.race + age + education + income,
+mrp.exp.medicaid <- mrp(exp.medicaid ~ state + sex + race + sex.race + age + education + income,
                    data=poll.data,
                    population=mrp.census,
                    pop.weights="weighted2008",
